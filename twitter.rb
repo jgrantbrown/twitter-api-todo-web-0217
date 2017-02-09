@@ -1,8 +1,8 @@
 require 'twitter'
 require 'yaml'
-
+require"pry"
 class TwitterApi
-  attr_reader :client
+  attr_accessor :client
 
   def initialize
     keys = YAML.load_file('application.yml')
@@ -17,23 +17,27 @@ class TwitterApi
 
   def most_recent_friend
     #find the twitter gem method that retrieves a user's friends and grab the most recent friend
+    client.friends.first
   end
 
   def find_user_for(username)
+    client.user(username)
     #find the twitter gem method that returns the correct user, given a username
   end
 
   def find_followers_for(username)
+    client.followers(username).take(10)
     #find the twitter gem method that returns the follows of a given user
   end
 
   def homepage_timeline
+    client.home_timeline
     #find the twitter gem method that retreives the tweets from a user's timeline.
   end
-  
+
 end
 
-#Bonus: 
+#Bonus:
 
 # uncomment out the following and read the bonus instructions.
 # remember to comment out the WebMock line of your spec_helper, as the instructions dictate.
